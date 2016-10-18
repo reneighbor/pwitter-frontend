@@ -1,22 +1,15 @@
 <!doctype html>
 
 <meta charset="utf-8">
-<script async src="/javascript.js"></script>
+<script src="javascript/javascript.js"></script>
+<script async src="javascript/login.js"></script>
+<script async src="javascript/logout.js"></script>
+<script async src="javascript/postTweet.js"></script>
+<script async src="javascript/loadTweets.js"></script>
 
-<form action="http://localhost:5000/login" method="POST">
-	<label>Username
-		<input type="text" placeholder="Enter Username" name="username" required>
-	</label>
-    
-
-    <label>Password
-    	<input type="password" placeholder="Enter Password" name="password" required>
-    </label>
-    
-
-    <button type="submit">Login</button>
-</form>
-
+<form id="login"></form>
+<button id="logoutButton">Logout</button>
+<form id="tweet"></form>
 
 <ol id="tweets"></ol>
 
