@@ -1,4 +1,5 @@
-window.addEventListener('load', (e) => {
+// window.addEventListener('load', (e) => {
+	console.log('Loaded');
 	window.login.innerHTML += `
 		<label>userId
 			<input type="text" placeholder="Enter userId" name="userId" required>
@@ -15,7 +16,9 @@ window.addEventListener('load', (e) => {
 	if (authenticated()) {
 		reload();
 	}
-})
+// })
+
+console.log('Anything?');
 
 window.login.addEventListener('submit', (e) => {
 	e.preventDefault();
