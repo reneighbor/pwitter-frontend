@@ -6,6 +6,6 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "phantomjs-adapter": "0.0.4"
+    "phantomjs-adapter": "0.0.5"
   }
 }

@@ -3,28 +3,30 @@ import PhantomJS from 'phantomjs-adapter';
 
 const browser = new PhantomJS();
 
+// Make js files log to stdout in test
+// browser.logs.forEach((log) => {
+//   console.log(log);
+// });
+
 test.before(async () => {
 	// python -m SimpleHTTPServer 8080 
 	await browser.open('http://127.0.0.1:8080');
-  	await browser.sendEvent('load');
-
 });
 
 test(async (t) => {
-	console.log('searching for inputs')
-
 	const form = await browser.find('form[id="login"]');
-	console.log(form)
 
-	const searchBox = await browser.find('input[name="userId"]');
-	console.log(searchBox)
-	const usernameField = await browser.find('input[name="userId"]');
-	// const passwordField = await browser.find('input[name="password"]');
+	const usernameField = await browser.find('input[name="userId"]', {wait: 2000});
+	
+	const body = await browser.find('body');
+	console.log(body);
 
-	usernameField.fillIn('US508f050371364c');
-	// passwordField.fillIn('HDY2JT5IJRIQPYIP');
+	const passwordField = await browser.find('input[name="password"]');
 
-	browser.find('button[type="submit"]').click();
+	await usernameField.fillIn('US508f050371364c');
+	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
+
+	await browser.find('button[type="submit"]').click();
 
 	// const tweetInput = browser.find("")
 

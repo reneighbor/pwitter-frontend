@@ -1,4 +1,4 @@
-// window.addEventListener('load', (e) => {
+window.addEventListener('load', (e) => {
 	console.log('Loaded');
 	window.login.innerHTML += `
 		<label>userId
@@ -16,7 +16,7 @@
 	if (authenticated()) {
 		reload();
 	}
-// })
+});
 
 console.log('Anything?');
 
