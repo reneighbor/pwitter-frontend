@@ -3,10 +3,9 @@ import PhantomJS from 'phantomjs-adapter';
 
 const browser = new PhantomJS();
 
-// Make js files log to stdout in test
-// browser.logs.forEach((log) => {
-//   console.log(log);
-// });
+browser.logs.forEach((log) => {
+  console.log(log);
+});
 
 test.before(async () => {
 	// python -m SimpleHTTPServer 8080 
