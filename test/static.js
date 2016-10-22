@@ -18,16 +18,12 @@ test(async (t) => {
 
 	const usernameField = await browser.find('input[name="userId"]', {wait: 2000});
 	
-	const body = await browser.find('body');
-	console.log(body);
-
 	const passwordField = await browser.find('input[name="password"]');
+	console.log(passwordField);
 
 	await usernameField.fillIn('US508f050371364c');
 	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
 
-	await browser.find('button[type="submit"]').click();
-
-	// const tweetInput = browser.find("")
-
+	const submitButton = await browser.find('button[type="submit"]')
+	await submitButton.click();
 });

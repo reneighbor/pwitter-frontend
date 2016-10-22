@@ -2,10 +2,32 @@
   "name": "pwitter-frontend",
   "private": "true",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "start": "webpack-dev-server"
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "phantomjs-adapter": "0.0.5"
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "babel-runtime": "^6.11.6",
+    "phantomjs-adapter": "0.0.5",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  },
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
   }
 }
