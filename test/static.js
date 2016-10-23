@@ -28,7 +28,7 @@ test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	await submitButton.click();
 
 	const postTweetFieldLoaded = await browser.find('textarea[name="body"]');
-	t.is(postTweetFieldLoaded, null);
+	t.not(postTweetFieldLoaded, null);
 	const tweetsListTableLoaded = await browser.find('li[class="tweet"]');
-	t.is(tweetsListTableLoaded, null);
+	t.not(tweetsListTableLoaded, null);
 });
