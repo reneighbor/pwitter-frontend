@@ -18,7 +18,7 @@ function loadTweets() {
 			for (const tweet of jsonResponse.tweets) {
 				window.tweets.innerHTML += 
 				`
-				<li>
+				<li class="tweet">
 					<p>${tweet.date_created}</p>
 					<p>${tweet.body}</p>
 					<p>${tweet.username}</p>					

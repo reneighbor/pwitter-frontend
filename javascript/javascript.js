@@ -1,5 +1,3 @@
-console.log('javscript?');
-
 function authenticated() {
 	return Boolean(getCredentials());
 }
