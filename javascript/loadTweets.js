@@ -1,3 +1,8 @@
+import {authenticated} from './javascript';
+import {getCredentials} from './javascript';
+import {makeRequest} from './javascript';
+import {reload} from './javascript';
+
 window.addEventListener('reload', function (e) { 
 	if (authenticated()) {
 		loadTweets();

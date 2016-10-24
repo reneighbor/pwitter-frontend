@@ -25,6 +25,8 @@ test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
 
 	const submitButton = await browser.find('button[type="submit"]')
+	console.log('Here is the submit button');
+	console.log(submitButton);
 	await submitButton.click();
 
 	const postTweetFieldLoaded = await browser.find('textarea[name="body"]');

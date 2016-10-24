@@ -1,8 +1,8 @@
-function authenticated() {
+export function authenticated() {
 	return Boolean(getCredentials());
 }
 
-function getCredentials() {
+export function getCredentials() {
 	if (!sessionStorage.getItem('userId')) {
 		return null;
 	}
@@ -13,7 +13,7 @@ function getCredentials() {
 	};
 }
 
-function makeRequest(method, url, credentials, body) {
+export function makeRequest(method, url, credentials, body) {
 	const headers = new Headers();
 
 	if (method === 'POST') {
@@ -38,7 +38,7 @@ function makeRequest(method, url, credentials, body) {
 	});	
 }
 
-function reload() {
+export function reload() {
 	var event = new CustomEvent('reload', {bubbles: true});
 	window.dispatchEvent(event);
 }

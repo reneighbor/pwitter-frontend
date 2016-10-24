@@ -1,3 +1,5 @@
+import {reload} from './javascript';
+
 window.logoutButton.addEventListener('click', (e) => {
 	logout();
 	reload();
