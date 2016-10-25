@@ -4,6 +4,7 @@ import {makeRequest} from './javascript';
 import {reload} from './javascript';
 
 window.addEventListener('load', (e) => {
+	console.log('the load happened-- this is showing up');
 	window.login.innerHTML += `
 		<label>userId
 			<input type="text" placeholder="Enter userId" name="userId" required>
@@ -23,6 +24,7 @@ window.addEventListener('load', (e) => {
 });
 
 window.login.addEventListener('submit', (e) => {
+	console.log('submit button clicked-- this is not showing up!');
 	e.preventDefault();
 
 	authenticate(window.login.userId.value, window.login.password.value)

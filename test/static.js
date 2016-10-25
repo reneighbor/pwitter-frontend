@@ -8,7 +8,6 @@ browser.logs.forEach((log) => {
 });
 
 test.before(async () => {
-	// python -m SimpleHTTPServer 8080 
 	await browser.open('http://127.0.0.1:8080');
 });
 
@@ -25,11 +24,12 @@ test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
 
 	const submitButton = await browser.find('button[type="submit"]')
-	console.log('Here is the submit button');
+	console.log('submit button contents-- this is showing up');
 	console.log(submitButton);
-	await submitButton.click();
+	console.log('End big log of button');
+	await submitButton.click({wait: 2000});
 
-	const postTweetFieldLoaded = await browser.find('textarea[name="body"]');
+	const postTweetFieldLoaded = await browser.find('textarea[name="body"]', {wait: 2000});
 	t.not(postTweetFieldLoaded, null);
 	const tweetsListTableLoaded = await browser.find('li[class="tweet"]');
 	t.not(tweetsListTableLoaded, null);
