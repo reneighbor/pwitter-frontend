@@ -11,6 +11,10 @@ test.before(async () => {
 	await browser.open('http://127.0.0.1:8080');
 });
 
+test.after.always(async() => {
+	await browser.exit();
+})
+
 test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	const postTweetField = await browser.find('textarea[name="body"]');
 	t.is(postTweetField, null);
@@ -24,9 +28,6 @@ test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
 
 	const submitButton = await browser.find('button[type="submit"]')
-	console.log('submit button contents-- this is showing up');
-	console.log(submitButton);
-	console.log('End big log of button');
 	await submitButton.click({wait: 2000});
 
 	const postTweetFieldLoaded = await browser.find('textarea[name="body"]', {wait: 2000});
