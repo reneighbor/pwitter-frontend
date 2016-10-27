@@ -16,18 +16,16 @@ export function getCredentials() {
 }
 
 export function makeRequest(method, url, credentials, body) {
-	console.log('At the beg of makeRequest');
-	console.log(url);
-	const headers = new Headers();
-	console.log('Headers?');
+	const headers = {};
 
-	// if (method === 'POST') {
-	// 	headers.append('Content-Type', 'application/json');
-	// }
-	// if (credentials) {
-	// 	const {userId, password} = credentials;
-	// 	headers.append('Authorization', 'Basic ' + btoa(`${userId}:${password}`));	
-	// }
+	if (method === 'POST') {
+		headers['Content-Type'] = 'application/json';
+	}
+	if (credentials) {
+		const {userId, password} = credentials;
+		headers['Authorization'] = 'Basic ' + btoa(`${userId}:${password}`);
+	}
+
 
 	return fetch(url, {
 		method: method,

@@ -15,6 +15,23 @@ test.after.always(async() => {
 	await browser.exit();
 })
 
+test.only('submitting bad credentials does not log in and clears sessionStorage', async (t) => {
+	const postTweetField = await browser.find('textarea[name="body"]');
+	t.is(postTweetField, null);
+	const tweetsListTable = await browser.find('li[class="tweet"]');
+	t.is(tweetsListTable, null);
+
+	const usernameField = await browser.find('input[name="userId"]');	
+	const passwordField = await browser.find('input[name="password"]');
+
+	await usernameField.fillIn('BadUsername');
+	await passwordField.fillIn('BadPassword');
+
+	const submitButton = await browser.find('button[type="submit"]')
+	await submitButton.click({wait: 2000});
+
+});
+
 test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	const postTweetField = await browser.find('textarea[name="body"]');
 	t.is(postTweetField, null);
