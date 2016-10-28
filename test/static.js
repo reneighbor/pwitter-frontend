@@ -24,8 +24,24 @@ test.only('submitting bad credentials does not log in and clears sessionStorage'
 	const usernameField = await browser.find('input[name="userId"]');	
 	const passwordField = await browser.find('input[name="password"]');
 
+	console.log('Session Storage Before:');	
+	await browser.evaluate("console.log('Hello World')");
+	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
+
 	await usernameField.fillIn('BadUsername');
 	await passwordField.fillIn('BadPassword');
+
+	console.log('Session Storage After:');	
+	await browser.evaluate(`\
+	var sessionStorage = window.sessionStorage;
+ 	var keys = $.map(sessionStorage, function(v, i) {
+		return i;
+	});
+
+	console.log(keys);
+
+	`);
+	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
 
 	const submitButton = await browser.find('button[type="submit"]')
 	await submitButton.click({wait: 2000});
