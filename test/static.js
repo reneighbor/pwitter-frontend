@@ -15,38 +15,38 @@ test.after.always(async() => {
 	await browser.exit();
 })
 
-test.only('submitting bad credentials does not log in and clears sessionStorage', async (t) => {
-	const postTweetField = await browser.find('textarea[name="body"]');
-	t.is(postTweetField, null);
-	const tweetsListTable = await browser.find('li[class="tweet"]');
-	t.is(tweetsListTable, null);
+// test.only('submitting bad credentials does not log in and clears sessionStorage', async (t) => {
+// 	const postTweetField = await browser.find('textarea[name="body"]');
+// 	t.is(postTweetField, null);
+// 	const tweetsListTable = await browser.find('li[class="tweet"]');
+// 	t.is(tweetsListTable, null);
 
-	const usernameField = await browser.find('input[name="userId"]');	
-	const passwordField = await browser.find('input[name="password"]');
+// 	const usernameField = await browser.find('input[name="userId"]');	
+// 	const passwordField = await browser.find('input[name="password"]');
 
-	console.log('Session Storage Before:');	
-	await browser.evaluate("console.log('Hello World')");
-	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
+// 	console.log('Session Storage Before:');	
+// 	await browser.evaluate("console.log('Hello World')");
+// 	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
 
-	await usernameField.fillIn('BadUsername');
-	await passwordField.fillIn('BadPassword');
+// 	await usernameField.fillIn('BadUsername');
+// 	await passwordField.fillIn('BadPassword');
 
-	console.log('Session Storage After:');	
-	await browser.evaluate(`\
-	var sessionStorage = window.sessionStorage;
- 	var keys = $.map(sessionStorage, function(v, i) {
-		return i;
-	});
+// 	console.log('Session Storage After:');	
+// 	await browser.evaluate(`\
+// 	var sessionStorage = window.sessionStorage;
+//  	var keys = $.map(sessionStorage, function(v, i) {
+// 		return i;
+// 	});
 
-	console.log(keys);
+// 	console.log(keys);
 
-	`);
-	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
+// 	`);
+// 	// await browser.evaluate('console.log(Object.values(window.sessionStorage))');
 
-	const submitButton = await browser.find('button[type="submit"]')
-	await submitButton.click({wait: 2000});
+// 	const submitButton = await browser.find('button[type="submit"]')
+// 	await submitButton.click({wait: 2000});
 
-});
+// });
 
 test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	const postTweetField = await browser.find('textarea[name="body"]');
@@ -61,9 +61,10 @@ test('logging in loads post-tweet and load-tweet fields', async (t) => {
 	await passwordField.fillIn('HDY2JT5IJRIQPYIP');
 
 	const submitButton = await browser.find('button[type="submit"]')
-	await submitButton.click({wait: 2000});
+	await submitButton.click();
 
 	const postTweetFieldLoaded = await browser.find('textarea[name="body"]', {wait: 2000});
+	console.log((await browser.find('body')).innerHTML);
 	t.not(postTweetFieldLoaded, null);
 	const tweetsListTableLoaded = await browser.find('li[class="tweet"]');
 	t.not(tweetsListTableLoaded, null);

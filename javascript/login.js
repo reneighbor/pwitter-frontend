@@ -37,15 +37,13 @@ function authenticate(userId, password) {
 
 	const credentials = getCredentials();
 
-	// `http://${credentials.userId}:${credentials.password}@localhost:5000/users/${username}/tweets`
-
-	return makeRequest('GET', `http://${credentials.userId}:${credentials.password}@localhost:5000/users?userId=${userId}`, credentials)
+	return makeRequest('GET', `http://localhost:5000/users?userId=${userId}`, credentials)
 		.then(
 			(jsonResponse) => {
 				sessionStorage.setItem('username', jsonResponse.user.username);
 			},
 			(error) => {
-				sessionStorage.removeItem('username');
+				sessionStorage.removeItem('userId');
 				sessionStorage.removeItem('password');
 			}
 		);		
