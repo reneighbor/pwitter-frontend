@@ -1,8 +1,3 @@
-import {authenticated} from './javascript';
-import {getCredentials} from './javascript';
-import {makeRequest} from './javascript';
-import {reload} from './javascript';
-
 window.addEventListener('reload', (e) => {
 	if (authenticated())  {
 		window.tweet.innerHTML = `

@@ -1,12 +1,8 @@
-import fetch from 'isomorphic-fetch';
-window.Promise = Promise; // To make Promise available in 
-//phantom-js during isomorphic-fetch compiling
-
-export function authenticated() {
+function authenticated() {
 	return Boolean(getCredentials());
 }
 
-export function getCredentials() {
+function getCredentials() {
 	if (!sessionStorage.getItem('userId')) {
 		return null;
 	}
@@ -17,7 +13,7 @@ export function getCredentials() {
 	};
 }
 
-export function makeRequest(method, url, credentials, body) {
+function makeRequest(method, url, credentials, body) {
 	const headers = new Headers();
 
 	if (method === 'POST') {
@@ -28,8 +24,7 @@ export function makeRequest(method, url, credentials, body) {
 		headers.append('Authorization', 'Basic ' + btoa(`${userId}:${password}`))
 	}
 
-	try {
-		const request = fetch(url, {
+	return fetch(url, {
 			method: method,
 			headers: headers,
 			body: JSON.stringify(body)
@@ -46,15 +41,10 @@ export function makeRequest(method, url, credentials, body) {
 			console.log('Fetch threw error');
 			console.log(error);
 			throw error;
-		});	
-	} catch(exception) {
-		console.log(exception);
-	}
-	
-	return request;
+	});	
 }
 
-export function reload() {
+function reload() {
 	var event = new CustomEvent('reload', {bubbles: true});
 	window.dispatchEvent(event);
 }
