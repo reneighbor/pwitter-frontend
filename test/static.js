@@ -14,7 +14,7 @@ test.after.always(async(t) => {
 	await browser.quit();
 })
 
-test.only('submitting bad credentials does not log in and clears sessionStorage', async (t) => {
+test('submitting bad credentials does not log in and clears sessionStorage', async (t) => {
 	const postTweetField = await browser.findElements(By.css('textarea[name="body"]'));
 	const tweetsListTable = await browser.findElements(By.css('li[class="tweet"]'));
 	t.is(postTweetField.length, 0);
@@ -49,7 +49,7 @@ test.only('submitting bad credentials does not log in and clears sessionStorage'
 	t.is(tweetsListTable.length, 0);
 });
 
-test('logging in loads post-tweet and load-tweet fields and saves login info to sessionStorage', async (t) => {
+test.only('logging in loads post-tweet and load-tweet fields and saves login info to sessionStorage', async (t) => {
 	const postTweetField = await browser.findElements(By.css('textarea[name="body"]'));
 	const tweetsListTable = await browser.findElements(By.css('li[class="tweet"]'));
 	t.is(postTweetField.length, 0);
@@ -60,14 +60,15 @@ test('logging in loads post-tweet and load-tweet fields and saves login info to 
 	t.is(sessionStorageUserId, null)
 	t.is(sessionStorageUserPassword, null)
 
-	const usernameField = await browser.findElement(By.css('input[name="userId"]'));	
-	const passwordField = await browser.findElement(By.css('input[name="password"]'));
+	// const usernameField = await browser.findElement(By.css('input[name="userId"]'));	
+	// const passwordField = await browser.findElement(By.css('input[name="password"]'));
 	
-	await usernameField.sendKeys('US508f050371364c');
-	await passwordField.sendKeys('HDY2JT5IJRIQPYIP');
+	// await usernameField.sendKeys('US508f050371364c');
+	// await passwordField.sendKeys('HDY2JT5IJRIQPYIP');
 
-	const submitButton = await browser.findElement(By.css('button[type="submit"]'));
-	await submitButton.click();
+	// const submitButton = await browser.findElement(By.css('button[type="submit"]'));
+	// await submitButton.click();
+	// attemptLogin('US508f050371364c', 'HDY2JT5IJRIQPYIP');
 
 	await browser.wait(until.elementLocated(By.css('textarea[name="body"]')));
 	await browser.wait(until.elementLocated(By.css('li[class="tweet"]')));
@@ -82,3 +83,32 @@ test('logging in loads post-tweet and load-tweet fields and saves login info to 
 	t.is(sessionStorageUserId, 'US508f050371364c')
 	t.is(sessionStorageUserPassword, 'HDY2JT5IJRIQPYIP')
 });
+
+// test('posting a tweet adds that tweet to the tweets list', async (t) => {
+// 	const usernameField = await browser.findElement(By.css('input[name="userId"]'));	
+// 	const passwordField = await browser.findElement(By.css('input[name="password"]'));
+	
+// 	await usernameField.sendKeys('US508f050371364c');
+// 	await passwordField.sendKeys('HDY2JT5IJRIQPYIP');
+
+// 	const submitButton = await browser.findElement(By.css('button[type="submit"]'));
+// 	await submitButton.click();
+
+// 	const tweetsListTableLoaded = await browser.findElements(By.css('li[class="tweet"]'));
+	
+// 	for tweet in tweetsListTableLoaded {
+// 		t.true(tweet);
+// 	}
+// });
+
+async function attemptLogin (userId, password) {
+	const usernameField = await browser.findElement(By.css('input[name="userId"]'));	
+	const passwordField = await browser.findElement(By.css('input[name="password"]'));
+	
+	await usernameField.sendKeys(userId);
+	await passwordField.sendKeys(password);
+
+	const submitButton = await browser.findElement(By.css('button[type="submit"]'));
+	await submitButton.click();
+	return;
+};
