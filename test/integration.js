@@ -85,16 +85,25 @@ async function attemptLogin(t, userId, password) {
     await t.context.browser.addValue('input[name="userId"]', userId);
     await t.context.browser.addValue('input[name="password"]', password);
 
-    await t.context.browser.click('button[type="submit"]');
+    await t.context.browser.click('form#login button[type="submit"]');
 }
 
 async function getTweetsList(t) {
-    const tweetsList = await t.context.browser.elements('li[class="tweet"]');
-    return tweetsList.value;
+    const tweetsElements = await t.context.browser.elements('li[class="tweet"]');
+    const tweetsList = [];
+
+    for (let i = 1; i <= tweetsElements.value.length; i++) {
+        tweetsList.push(await t.context.browser.getText(`li.tweet:nth-child(${i}) p.body`));
+    }
+    return tweetsList;
 };
 
 async function postTweet(t, body) {
     await t.context.browser.addValue('textarea[name="body"]', body);
-    await t.context.browser.click('button[type="submit"]');
-    // await t.450076context.browser.waitForExist('span[class="confirm-post-tweet"]');
+    await t.context.browser.click('form#tweet button[type="submit"]');
+
+    await t.context.browser.waitUntil(async () => {
+        const firstTweetText = await t.context.browser.getText('li.tweet:first-child .body');
+        return firstTweetText == body;
+    }, 5000);
 }
