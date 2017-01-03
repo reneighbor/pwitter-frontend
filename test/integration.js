@@ -27,7 +27,7 @@ test('submitting with bad creds does not log in', async(t) => {
     await confirmNotLoggedIn(t);
 });
 
-test.only('posting a tweet adds that tweet to tweets list', async(t) => {
+test('posting a tweet adds that tweet to tweets list', async(t) => {
     await attemptLogin(t, 'USd91f346acdaf46', 'YZ9KPOIS0KLM9AKG');
     await confirmLoggedIn(t, 'USd91f346acdaf46', 'YZ9KPOIS0KLM9AKG');
 
@@ -38,6 +38,13 @@ test.only('posting a tweet adds that tweet to tweets list', async(t) => {
     t.is(updatedTweetsList.length, tweetsList.length + 1);
 
     t.is(updatedTweetsList[0], `Tweet ${tweetsList.length + 1}`);
+});
+
+test('logging out removes logged-in components and clears session storage', async(t) => {
+    await attemptLogin(t, 'USd91f346acdaf46', 'YZ9KPOIS0KLM9AKG');
+    await confirmLoggedIn(t, 'USd91f346acdaf46', 'YZ9KPOIS0KLM9AKG');
+    await logOut(t);
+    await confirmNotLoggedIn(t);
 });
 
 async function confirmNotLoggedIn(t) {
@@ -75,6 +82,13 @@ async function attemmptLoginBadCredentials(t) {
     await t.context.browser.addValue('input[name="password"]', "Bad Password");
 
     await t.context.browser.click('form#login button[type="submit"]');
+    
+    // Added in case 401 doesn't come back in time, give
+    // it full waitUntil length
+    const alertPresent = await t.context.browser.waitUntil(() => {
+        return t.context.browser.alertText();
+    }, 5000); 
+
     const alertText = await t.context.browser.alertText();
 
     t.true(alertText.includes("Please log in with valid credentials"));
@@ -106,4 +120,8 @@ async function postTweet(t, body) {
         const firstTweetText = await t.context.browser.getText('li.tweet:first-child .body');
         return firstTweetText == body;
     }, 5000);
+}
+
+async function logOut(t) {
+    await t.context.browser.click('button#logoutButton');
 }
