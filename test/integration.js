@@ -32,12 +32,12 @@ test.only('posting a tweet adds that tweet to tweets list', async(t) => {
     await confirmLoggedIn(t, 'USd91f346acdaf46', 'YZ9KPOIS0KLM9AKG');
 
     const tweetsList = await getTweetsList(t);
-    await postTweet(t, "This will get added to the top");
+    await postTweet(t, `Tweet ${tweetsList.length + 1}`);
     
     const updatedTweetsList = await getTweetsList(t);
     t.is(updatedTweetsList.length, tweetsList.length + 1);
-    
-    t.true(updatedTweetsList[0].body.includes("This will get added to the top"))
+
+    t.is(updatedTweetsList[0], `Tweet ${tweetsList.length + 1}`);
 });
 
 async function confirmNotLoggedIn(t) {
@@ -54,8 +54,8 @@ async function confirmNotLoggedIn(t) {
     t.is(sessionStoragePassword.value, null);
 }
 
-async function confirmLoggedIn(t, userId, password) {89
-    await t.context.browser.waitForExist('textarea[name="body"]', 1000);
+async function confirmLoggedIn(t, userId, password) {
+    await t.context.browser.waitForExist('textarea[name="body"]', 2000);
 
     const postTweetField = await t.context.browser.elements('textarea[name="body"]');
     t.is(postTweetField.value.length, 1);
@@ -74,7 +74,7 @@ async function attemmptLoginBadCredentials(t) {
     await t.context.browser.addValue('input[name="userId"]', "Bad UserId");
     await t.context.browser.addValue('input[name="password"]', "Bad Password");
 
-    await t.context.browser.click('button[type="submit"]');
+    await t.context.browser.click('form#login button[type="submit"]');
     const alertText = await t.context.browser.alertText();
 
     t.true(alertText.includes("Please log in with valid credentials"));
