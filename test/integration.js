@@ -81,8 +81,8 @@ async function attemmptLoginBadCredentials(t) {
     await t.context.browser.addValue('input[name="userId"]', "Bad UserId");
     await t.context.browser.addValue('input[name="password"]', "Bad Password");
 
-    await t.context.browser.click('form#login button[type="submit"]');
-    
+
+    await t.context.browser.click('form#loginForm button[type="submit"]');
     // Added in case 401 doesn't come back in time, give
     // it full waitUntil length
     const alertPresent = await t.context.browser.waitUntil(() => {
@@ -99,7 +99,7 @@ async function attemptLogin(t, userId, password) {
     await t.context.browser.addValue('input[name="userId"]', userId);
     await t.context.browser.addValue('input[name="password"]', password);
 
-    await t.context.browser.click('form#login button[type="submit"]');
+    await t.context.browser.click('form#loginForm button[type="submit"]');
 }
 
 async function getTweetsList(t) {
