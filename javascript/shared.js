@@ -33,9 +33,7 @@ function makeRequest(method, url, credentials, body) {
 			console.log(response);
 			if (response.status == 401) {
 				const message = 'Please log in with valid credentials';
-				setTimeout(() => {
-					alert(message);
-				}, 10000);
+				alert(message);
 				throw new Error(message);
 			}
 			return response.json();
