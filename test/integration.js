@@ -115,7 +115,7 @@ async function getTweetsList(t) {
 
 async function postTweet(t, body) {
     await t.context.browser.addValue('textarea[name="body"]', body);
-    await t.context.browser.click('form#tweet button[type="submit"]');
+    await t.context.browser.click('form#tweetForm button[type="submit"]');
 
     await t.context.browser.waitUntil(async () => {
         const firstTweetText = await t.context.browser.getText('li.tweet:first-child .body');
