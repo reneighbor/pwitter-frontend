@@ -29,8 +29,6 @@ function makeRequest(method, url, credentials, body) {
 			headers: headers,
 			body: JSON.stringify(body)
 		}).then((response) => {
-			console.log('Got response');
-			console.log(response);
 			if (response.status == 401) {
 				const message = 'Please log in with valid credentials';
 				alert(message);
@@ -38,8 +36,6 @@ function makeRequest(method, url, credentials, body) {
 			}
 			return response.json();
 		}, (error) => {
-			console.log('Fetch threw error');
-			console.log(error);
 			throw error;
 	});	
 }

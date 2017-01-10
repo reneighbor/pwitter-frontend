@@ -51,8 +51,8 @@ async function confirmNotLoggedIn(t) {
     const postTweetField = await t.context.browser.elements('textarea[name="body"]');
     t.is(postTweetField.value.length, 0);
 
-    const tweetsListTweets = await t.context.browser.elements('li[class="tweet"]');
-    t.is(tweetsListTweets.value.length, 0);
+    const tweetsList = await t.context.browser.elements('ol[class="tweetsList"]');
+    t.is(tweetsList.value.length, 0);
 
     const sessionStorageUserId = await t.context.browser.execute(() => window.sessionStorage.userId);
     t.is(sessionStorageUserId.value, null);
@@ -67,9 +67,8 @@ async function confirmLoggedIn(t, userId, password) {
     const postTweetField = await t.context.browser.elements('textarea[name="body"]');
     t.is(postTweetField.value.length, 1);
 
-    // @TODO after replace <ol> with <div>, wait for the <ol> to load (bc )
-    // const tweetsListTweets = await t.context.browser.elements('li[class="tweet"]');
-    // t.true(tweetsListTweets.value.length > 1);
+    const tweetsList = await t.context.browser.elements('ol[id="tweetsList"]');
+    t.is(tweetsList.value.length, 1);
 
     const sessionStorageUserId = await t.context.browser.execute(() => window.sessionStorage.userId);
     t.is(sessionStorageUserId.value, userId);
@@ -120,7 +119,7 @@ async function postTweet(t, body) {
     await t.context.browser.waitUntil(async () => {
         const firstTweetText = await t.context.browser.getText('li.tweet:first-child .body');
         return firstTweetText == body;
-    }, 5000);
+    }, 10000);
 }
 
 async function logOut(t) {
